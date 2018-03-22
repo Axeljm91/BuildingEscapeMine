@@ -7,7 +7,10 @@
 		{
 			"Name": "BuildingEscapeMine",
 			"Type": "Runtime",
-			"LoadingPhase": "Default"
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine"
+			]
 		}
 	]
 }

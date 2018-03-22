@@ -12,3 +12,5 @@ Content/StarterContent/
 # VS Generated Files #
 ######################
 *.VC.db
+.vs/BuildingEscapeMine/v15/ipch/
+.vs/BuildingEscapeMine/v15/
