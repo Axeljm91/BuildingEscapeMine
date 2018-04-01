@@ -11,7 +11,7 @@
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class BUILDINGESCAPEMINE_API UOpenDoor : public UActorComponent
+class BUILDINGESCAPE_API UOpenDoor : public UActorComponent
 {
 	GENERATED_BODY()
 
@@ -24,6 +24,7 @@ protected:
 	virtual void BeginPlay() override;
 
 	void OpenDoor();
+	void CloseDoor();
 
 public:	
 	// Called every frame
@@ -31,12 +32,17 @@ public:
 
 		
 private:
-	UPROPERTY(VisibleAnywhere)
-	float OpenAngle = 90.0f;
+	UPROPERTY(EditAnywhere)
+		float OpenAngle = 90.f;
 
 	UPROPERTY(EditAnywhere)
 		ATriggerVolume* PressurePlate;
 
-		AActor* ActorThatOpens; // Remember pawn inherits from actor
+	UPROPERTY(EditAnywhere)
+		float DoorCloseDelay = 0.5f;
 
+		float LastDoorOpenTime;
+
+		AActor* ActorThatOpens; // Remember pawn inherits from actor
+		AActor* Owner; // The owning door
 };
