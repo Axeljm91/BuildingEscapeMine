@@ -47,7 +47,21 @@ void UGrabber::SetupInputComponent()
 	}
 }
 
-void UGrabber::Grab() 
+// Called every frame
+void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	if (!PhysicsHandle) { return; }
+	// If the physics handle is attached
+	if (PhysicsHandle->GrabbedComponent)
+	{
+		// Move the object that we're holding
+		PhysicsHandle->SetTargetLocation(GetReachLineEnd());
+	}
+}
+
+void UGrabber::Grab()
 {
 	/// LINE TRACE and see if we reach any actors with physics body collision channel set
 	auto HitResult = GetFirstPhysicsBodyInReach();
@@ -57,6 +71,7 @@ void UGrabber::Grab()
 	/// If we hit something then attach a physics handle
 	if (ActorHit)
 	{
+		if (!PhysicsHandle) { return; }
 		PhysicsHandle->GrabComponentAtLocationWithRotation(
 			ComponentToGrab,
 			NAME_None, //No bones
@@ -66,22 +81,10 @@ void UGrabber::Grab()
 	}
 }
 
-void UGrabber::Release() 
+void UGrabber::Release()
 {
+	if (!PhysicsHandle) { return; }
 	PhysicsHandle->ReleaseComponent();
-}
-
-// Called every frame
-void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// If the physics handle is attached
-	if (PhysicsHandle->GrabbedComponent)
-	{
-		// Move the object that we're holding
-		PhysicsHandle->SetTargetLocation(GetReachLineEnd());
-	}
 }
 
 const FHitResult UGrabber::GetFirstPhysicsBodyInReach()
