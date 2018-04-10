@@ -4,13 +4,15 @@
 /Build
 /Binaries
 /DerivedDataCache
-/Intermediate/
+/Intermediate
 /Saved
-Content/StarterContent/
+/Content/StarterContent/
 
 ######################
 # VS Generated Files #
 ######################
-*.VC.db
+.VC.db
+.suo
+.VC.opendb
+.sln
 .vs/BuildingEscape/v15/
-.vs/BuildingEscapeMine/v15/
